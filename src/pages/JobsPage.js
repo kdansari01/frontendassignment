@@ -2,7 +2,11 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { JobDataByCategory } from "../component/JobsDataByCategory";
 import "./jobsPage.css";
+import { useSelector } from "react-redux";
+import Login from "../component/google.auth/Login";
 const JobsPage = () => {
+  const getUser = useSelector((state) => state.user.user);
+
   const { category } = useParams();
 
   const jobsForCategory = JobDataByCategory[category] || [];
@@ -30,9 +34,16 @@ const JobsPage = () => {
                 <p>Must Skills: {job.mustSkills}</p>
               </div>
               <div className="d-flex justify-content-center">
-                <Link to={`/jobs/${job.title}/${job.id}`} className="button-9">
-                  Apply
-                </Link>
+                {getUser ? (
+                  <Link
+                    to={`/jobs/${job.title}/${job.id}`}
+                    className="button-9"
+                  >
+                    Apply
+                  </Link>
+                ) : (
+                  <Login />
+                )}
               </div>
             </div>
           </div>

@@ -5,7 +5,6 @@ import "./style.css";
 
 const JobCategories = () => {
   const navigate = useNavigate();
-
   const handleCategoryClick = (category) => {
     navigate(`/jobs/${category}`);
   };
